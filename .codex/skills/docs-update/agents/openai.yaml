@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs Update"
+  short_description: "Update repository documentation"
+  default_prompt: "Use $docs-update to analyze this repository and update the documentation."

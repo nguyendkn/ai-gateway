@@ -1,0 +1,4 @@
+interface:
+  display_name: "Archive Plans"
+  short_description: "Journal and archive plan folders"
+  default_prompt: "Use $archive-plans to write journal entries and archive completed plans."

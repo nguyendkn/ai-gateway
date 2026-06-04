@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Merge Branch"
+  short_description: "Merge remote branch changes safely"
+  default_prompt: "Use $git-merge-branch to merge a pushed source branch into a target branch."

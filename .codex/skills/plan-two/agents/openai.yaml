@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Two"
+  short_description: "Research two implementation plans"
+  default_prompt: "Use $plan-two to research this task and create two implementation approaches without implementing."

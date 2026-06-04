@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit"
+  short_description: "Stage files and create a Git commit"
+  default_prompt: "Use $git-commit to stage all files and create a commit without pushing."

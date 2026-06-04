@@ -1,0 +1,1 @@
+/Users/nguyendk/Documents/projects/fci/ai-gateway/.agents/skills/gstack/make-pdf/SKILL.md

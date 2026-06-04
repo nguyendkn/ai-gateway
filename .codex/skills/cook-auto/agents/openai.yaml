@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cook Auto"
+  short_description: "Plan and implement feature tasks"
+  default_prompt: "Use $cook-auto to implement these tasks: ..."

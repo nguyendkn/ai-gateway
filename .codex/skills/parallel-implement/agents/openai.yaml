@@ -1,0 +1,4 @@
+interface:
+  display_name: "Parallel Implement"
+  short_description: "Plan and execute parallel phases"
+  default_prompt: "Use $parallel-implement to plan parallel phases and implement my tasks with fullstack agents."

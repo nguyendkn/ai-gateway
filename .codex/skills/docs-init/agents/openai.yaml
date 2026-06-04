@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs Init"
+  short_description: "Initialize project documentation"
+  default_prompt: "Use $docs-init to analyze this repository and create initial documentation."

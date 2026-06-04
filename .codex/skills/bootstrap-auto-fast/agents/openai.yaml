@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootstrap Auto Fast"
+  short_description: "Bootstrap new projects quickly"
+  default_prompt: "Use $bootstrap-auto-fast to plan and bootstrap a new project from my requirements."

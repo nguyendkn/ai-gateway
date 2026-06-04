@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootstrap Parallel"
+  short_description: "Bootstrap projects in parallel"
+  default_prompt: "Use $bootstrap-parallel to bootstrap a new project with parallel planning and implementation."

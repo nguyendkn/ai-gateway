@@ -1,0 +1,4 @@
+interface:
+  display_name: "Edge Case Review Parallel"
+  short_description: "Parallel edge-case verification"
+  default_prompt: "Use $edge-case-review-parallel to identify and verify edge cases in: ..."

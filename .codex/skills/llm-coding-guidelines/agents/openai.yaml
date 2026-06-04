@@ -1,0 +1,4 @@
+interface:
+  display_name: "LLM Coding Guidelines"
+  short_description: "Reduce common LLM coding mistakes"
+  default_prompt: "Use $llm-coding-guidelines when writing or reviewing code to keep changes simple, surgical, and verifiable."

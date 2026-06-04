@@ -1,0 +1,1 @@
+/Users/nguyendk/Documents/projects/fci/ai-gateway/.agents/skills/gstack/plan-design-review/SKILL.md

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Hard"
+  short_description: "Research and create deep plans"
+  default_prompt: "Use $plan-hard to research, analyze, and create an implementation plan for: ..."

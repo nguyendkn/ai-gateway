@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit Push"
+  short_description: "Commit and push current branch"
+  default_prompt: "Use $git-commit-push to stage all files, create a descriptive commit, and push the current branch."

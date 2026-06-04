@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootstrap"
+  short_description: "Stepwise approved project bootstrap"
+  default_prompt: "Use $bootstrap to bootstrap a new project from these requirements: ..."

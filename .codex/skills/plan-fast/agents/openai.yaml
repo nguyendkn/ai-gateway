@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Fast"
+  short_description: "Create implementation plans only"
+  default_prompt: "Use $plan-fast to analyze this task and create an implementation plan without implementing."

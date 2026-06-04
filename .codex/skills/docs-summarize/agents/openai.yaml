@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docs Summarize"
+  short_description: "Summarize docs and codebase state"
+  default_prompt: "Use $docs-summarize to summarize this repository from docs/codebase-summary.md."

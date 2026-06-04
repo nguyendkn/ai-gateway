@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review Codebase"
+  short_description: "Scan and analyze the codebase"
+  default_prompt: "Use $review-codebase to scan and analyze this codebase for risks, issues, and improvement opportunities."

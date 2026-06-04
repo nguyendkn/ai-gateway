@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan CI"
+  short_description: "Analyze CI logs and plan fixes"
+  default_prompt: "Use $plan-ci to analyze this GitHub Actions run and propose fixes: ..."

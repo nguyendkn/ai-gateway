@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan CRO"
+  short_description: "Create concise CRO planning reports"
+  default_prompt: "Use $plan-cro to create a CRO plan for this landing page or funnel issue."

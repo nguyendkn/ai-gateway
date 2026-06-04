@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bootstrap Auto"
+  short_description: "Bootstrap new projects end to end"
+  default_prompt: "Use $bootstrap-auto to bootstrap a new project from these requirements: ..."

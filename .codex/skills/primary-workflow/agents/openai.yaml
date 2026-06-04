@@ -1,0 +1,4 @@
+interface:
+  display_name: "Primary Workflow"
+  short_description: "Plan, implement, test, review"
+  default_prompt: "Use $primary-workflow to implement this task with planning, testing, review, and docs: ..."

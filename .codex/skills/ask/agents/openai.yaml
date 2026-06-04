@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ask"
+  short_description: "Answer architecture questions"
+  default_prompt: "Use $ask to answer this technical or architectural question."

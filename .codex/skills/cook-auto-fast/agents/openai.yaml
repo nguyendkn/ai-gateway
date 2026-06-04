@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cook Auto Fast"
+  short_description: "Scout, plan, and implement fast"
+  default_prompt: "Use $cook-auto-fast to implement these tasks without external research: ..."
