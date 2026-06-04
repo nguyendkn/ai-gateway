@@ -1,0 +1,4 @@
+interface:
+  display_name: "Preview"
+  short_description: "Render or verify local artifacts and UI output."
+  default_prompt: "Preview this artifact and report what renders or fails."

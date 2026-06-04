@@ -1,0 +1,4 @@
+interface:
+  display_name: "MCP Ops"
+  short_description: "Work with MCP servers and tools through Codex-native surfaces."
+  default_prompt: "Inspect or use the available MCP tools safely for this task."

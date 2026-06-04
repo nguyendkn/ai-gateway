@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kanban"
+  short_description: "Organize tasks and project status into a lightweight board."
+  default_prompt: "Turn this work into a concise kanban/status view."

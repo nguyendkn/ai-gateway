@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brainstorm"
+  short_description: "Explore options and tradeoffs before choosing a plan."
+  default_prompt: "Brainstorm practical options for this decision and recommend a path if evidence supports one."

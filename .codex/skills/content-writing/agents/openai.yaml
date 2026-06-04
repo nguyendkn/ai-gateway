@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Writing"
+  short_description: "Create or improve product, marketing, and conversion copy."
+  default_prompt: "Write or improve this content for the target audience and desired action."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integration Planning"
+  short_description: "Plan and implement third-party API, SDK, payment, and webhook integrations."
+  default_prompt: "Plan or implement this integration with current docs, security, and validation."

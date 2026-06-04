@@ -44,7 +44,7 @@ echo "=== FILE GROUPS ===" && \
 git diff --cached --name-only | awk -F'/' '{
   if ($0 ~ /\.(md|txt)$/) print "docs:"$0
   else if ($0 ~ /test|spec/) print "test:"$0
-  else if ($0 ~ /\.codex\/(skills|agents|commands|workflows)|\.claude\/(skills|agents|commands|workflows)/) print "config:"$0
+  else if ($0 ~ /\.codex\/(skills|agents|commands|workflows)/) print "config:"$0
   else if ($0 ~ /package\.json|yarn\.lock|pnpm-lock/) print "deps:"$0
   else if ($0 ~ /\.github|\.gitlab|ci\.yml/) print "ci:"$0
   else print "code:"$0
@@ -74,13 +74,13 @@ Split decision:
 - Keep one commit when all files are one logical type/scope, `FILES <= 3`, `LINES <= 50`, or all files clearly support one change.
 
 Tool 2 - Split strategy when needed:
-If splitting is required and `gemini` is available, run:
+If splitting is required and `codex` is available, run with fast Spark effort level 1 (`low`):
 
 ```bash
-gemini -y -p "Analyze these files and create logical commit groups: $(git diff --cached --name-status). Rules: 1) Group by type (feat/fix/docs/chore/deps/ci). 2) Group by scope if same type. 3) Never mix deps with code. 4) Never mix config with features. Output format: GROUP1: type(scope): description | file1,file2,file3 | GROUP2: ... Max 4 groups. <72 chars per message." --model gemini-2.5-flash
+git diff --cached --name-status | codex exec -m gpt-5.3-codex-spark -c 'model_reasoning_effort="low"' --ephemeral --sandbox read-only "Analyze these staged files and create logical commit groups. Rules: 1) Group by type (feat/fix/docs/chore/deps/ci). 2) Group by scope if same type. 3) Never mix deps with code. 4) Never mix config with features. Output format: GROUP1: type(scope): description | file1,file2,file3 | GROUP2: ... Max 4 groups. <72 chars per message."
 ```
 
-If `gemini` is unavailable, group manually from Tool 1:
+If `codex` is unavailable, group manually from Tool 1:
 - config -> `chore(config): ...`
 - deps -> `chore(deps): ...`
 - test -> `test: ...`
@@ -89,13 +89,13 @@ If `gemini` is unavailable, group manually from Tool 1:
 
 Tool 3 - Generate commit message:
 - For simple single commits (`LINES <= 30` and `FILES <= 3`), create the message yourself.
-- For complex single commits, use `gemini` when available:
+- For complex single commits, use `codex` when available with fast Spark effort level 1 (`low`):
 
 ```bash
-gemini -y -p "Create conventional commit from this diff: $(git diff --cached | head -300). Format: type(scope): description. Types: feat|fix|docs|chore|refactor|perf|test|build|ci. <72 chars. Focus on WHAT changed. No AI attribution." --model gemini-2.5-flash
+git diff --cached | head -300 | codex exec -m gpt-5.3-codex-spark -c 'model_reasoning_effort="low"' --ephemeral --sandbox read-only "Create a conventional commit subject from this staged diff. Format: type(scope): description. Types: feat|fix|docs|chore|refactor|perf|test|build|ci. Keep it under 72 chars. Focus on WHAT changed. No AI attribution."
 ```
 
-- If `gemini` is unavailable, create the message yourself from staged stats and filenames.
+- If `codex` is unavailable, create the message yourself from staged stats and filenames.
 
 Tool 4 - Commit and optional push:
 For a single commit:
@@ -146,7 +146,7 @@ git diff origin/$BASE...origin/$HEAD --stat 2>/dev/null || echo "No remote diff 
 ```
 
 - If the branch is not on remote, push with `git push -u origin HEAD` and retry analysis.
-- Generate the PR title/body from remote commits. Use `gemini` if available; otherwise summarize commit subjects yourself.
+- Generate the PR title/body from remote commits. Use `codex` if available; otherwise summarize commit subjects yourself.
 - Create the PR with `gh pr create --base "$BASE" --head "$HEAD" --title "TITLE" --body "BODY"`.
 
 PR rules:
@@ -160,7 +160,7 @@ Error handling:
 - Merge conflicts: report conflicting files and suggest `git status`.
 - Push rejected: report out-of-sync and suggest `git pull --rebase`.
 - Protected branch: report that a PR is required.
-- Gemini unavailable: silently create commit messages yourself.
+- Codex unavailable: silently create commit messages yourself.
 
 Output format:
 For single commit:

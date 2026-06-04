@@ -9,7 +9,7 @@ Use this skill to turn a project idea into a working, documented, tested reposit
 
 ## Operating Rules
 
-- Read top-level guidance first: `AGENTS.md`, `CLAUDE.md`, `.codex/config.toml`, and relevant `docs/` files when present.
+- Read top-level guidance first: `AGENTS.md`, `.codex/config.toml`, and relevant `docs/` files when present.
 - Activate relevant skills and use available project agents when they exist: `researcher`, `planner`, `brainstormer`, `ui-ux-designer`, `fullstack-developer`, `tester`, `debugger`, `code-reviewer`, `docs-manager`, `project-manager`, and `git-manager`.
 - If an expected agent or skill is unavailable, continue with the closest local capability and state the fallback.
 - Keep generated research and handoff reports concise. Target <=150 lines unless the user asks for more.

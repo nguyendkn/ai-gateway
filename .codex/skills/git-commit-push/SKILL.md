@@ -8,7 +8,7 @@ description: Stage all changes, create a meaningful conventional commit with bot
 ## Operating Rules
 
 - Use `git_manager` when available.
-- Use the fastest available execution path. If a model override is supported, request `haiku` for the `git_manager` task.
+- Use the fastest available execution path. If model and effort overrides are supported, request `gpt-5.3-codex-spark` with effort level 1 (`low`) for fast Git task assistance.
 - Stage all repository changes.
 - Create a meaningful conventional commit based on the staged changes.
 - Push the current branch to the configured remote.
@@ -39,7 +39,7 @@ Do not create subject-only commits.
 1. Delegate to `git_manager` with an explicit commit-and-push request:
 
 ```text
-Stage all files, check for secrets, create a conventional commit with both subject and body, and push the current branch. Use haiku model if model selection is available.
+Stage all files, check for secrets, create a conventional commit with both subject and body, and push the current branch. Use `gpt-5.3-codex-spark` with effort level 1 (`low`) if model and effort selection are available.
 ```
 
 2. If delegation is unavailable, run the equivalent workflow locally:

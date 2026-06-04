@@ -1,44 +1,45 @@
 ---
 name: ask
-description: "[OMX] Ask a local external advisor CLI (Claude or Gemini) and capture a reusable artifact"
+description: "[OMX] Ask a local Codex advisor CLI and capture a reusable artifact"
 ---
 
 # Ask (Local Advisor CLI)
 
-Use a locally installed external advisor CLI for focused questions, reviews, brainstorming, or second opinions. This skill replaces the separate `ask-claude` and `ask-gemini` skills.
+Use a local Codex advisor CLI for focused questions, reviews, brainstorming, or second opinions.
 
 ## Usage
 
 ```bash
-$ask claude <question or task>
-$ask gemini <question or task>
-omx ask claude "<question or task>"
-omx ask gemini "<question or task>"
+$ask codex <question or task>
+codex exec -m gpt-5.3-codex-spark -c 'model_reasoning_effort="low"' --ephemeral --sandbox read-only "<question or task>"
 ```
 
 ## Backend selection
 
-- Use `claude` when the user asks for Claude, Anthropic, or the previous `$ask-claude` behavior.
-- Use `gemini` when the user asks for Gemini or the previous `$ask-gemini` behavior.
-- If no backend is specified, choose the installed backend that best matches the user request; if neither is clearly available, explain that a local CLI is required.
+- Use `codex` for advisor requests in this Codex workspace.
+- Default to effort `1` for fast advisor requests unless the user asks for deeper reasoning.
+- If the Codex CLI is unavailable, explain that a local CLI is required.
+
+## Effort mapping
+
+Use Codex `model_reasoning_effort` values:
+
+| Level | Meaning | Codex value |
+| --- | --- | --- |
+| 1 | Low | `low` |
+| 2 | Medium | `medium` |
+| 3 | High | `high` |
+| 4 | Extra high | `xhigh` |
 
 ## Local CLI commands
 
-Claude:
+Codex:
 
 ```bash
-omx ask claude "{{ARGUMENTS}}"
-claude -p "{{ARGUMENTS}}"
+codex exec -m gpt-5.3-codex-spark -c 'model_reasoning_effort="low"' --ephemeral --sandbox read-only "{{ARGUMENTS}}"
 ```
 
-Gemini:
-
-```bash
-omx ask gemini "{{ARGUMENTS}}"
-gemini -p "{{ARGUMENTS}}"
-```
-
-If needed, adapt to the user's installed CLI variant while keeping local execution as the default path. Do not silently switch to an MCP or remote provider when the local binary is missing.
+If needed, adapt to the user's installed Codex CLI variant while keeping local execution as the default path. Do not silently switch to an MCP or remote provider when the local binary is missing.
 
 ## Artifact requirement
 

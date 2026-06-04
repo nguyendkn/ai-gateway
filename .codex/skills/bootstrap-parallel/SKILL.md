@@ -11,7 +11,7 @@ description: Bootstrap a new project with parallel research, stack selection, de
 - Be blunt about feasibility, complexity, risks, and trade-offs.
 - Apply YAGNI, KISS, and DRY.
 - Activate relevant skills and agents when available.
-- Follow `AGENTS.md`, `CLAUDE.md`, `docs/code-standards.md`, and development rules when present.
+- Follow `AGENTS.md`, `.codex/config.toml`, `docs/code-standards.md`, and development rules when present.
 - Keep research reports at or under 150 lines.
 - Sacrifice grammar for concision in reports.
 - Do not fake data or weaken checks to pass tests.

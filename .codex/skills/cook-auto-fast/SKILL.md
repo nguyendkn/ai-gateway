@@ -10,8 +10,8 @@ Use this skill for small to medium feature tasks where the user wants fast execu
 ## Rules
 
 - Treat `[tasks-or-prompt]` as the source of truth.
-- Follow `AGENTS.md`, `CLAUDE.md`, `.codex/config.toml`, local docs, and development rules when present.
-- Analyze local skills in `.codex/skills/` and `.claude/skills/` when present; activate only skills that materially help.
+- Follow `AGENTS.md`, `.codex/config.toml`, local docs, and development rules when present.
+- Analyze local skills in `.codex/skills/` when present; activate only skills that materially help.
 - Apply YAGNI, KISS, and DRY. Prefer minimal changes over speculative architecture.
 - Preserve user changes. Do not revert unrelated work.
 - Do not use fake data, weaken checks, ignore failures, or hide uncertainty.

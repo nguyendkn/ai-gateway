@@ -5,7 +5,7 @@ description: "[OMX] N coordinated agents on shared task list using tmux-based or
 
 # Team Skill
 
-`$team` is the tmux-based parallel execution mode for OMX. It starts real worker Codex and/or Claude CLI sessions in split panes and coordinates them through `.omx/state/team/...` files plus CLI team interop (`omx team api ...`) and state files.
+`$team` is the tmux-based parallel execution mode for OMX. It starts real worker Codex CLI sessions in split panes and coordinates them through `.omx/state/team/...` files plus CLI team interop (`omx team api ...`) and state files.
 
 This skill is operationally sensitive. Treat it as an operator workflow, not a generic prompt pattern. In Codex App or plain outside-tmux sessions, do not present `$team` / `omx team` as directly available; launch OMX CLI from shell first, or stay on the nearest app-safe surface until the user explicitly wants the tmux runtime.
 
@@ -79,21 +79,15 @@ Use `$ultragoal` for durable leader-owned goal/ledger tracking and `$team` for p
 
 Workers provide task status and verification evidence only. They do not own Ultragoal goal state, create worker ledgers, mutate `.omx/ultragoal`, auto-launch Team from Ultragoal, or perform hidden Codex goal mutation. The leader uses terminal Team evidence plus a fresh `get_goal` snapshot to run `omx ultragoal checkpoint --goal-id <id> --status complete --evidence "<team evidence mentioning .omx/ultragoal and <id>>" --codex-goal-json <fresh-get_goal-json-or-path>`.
 
-### Claude teammates (v0.6.0+)
+### Codex teammate selection
 
-Important: `N:agent-type` (for example `2:executor`) selects the **worker role prompt**, not the worker CLI (`codex` vs `claude`).
+Important: `N:agent-type` (for example `2:executor`) selects the **worker role prompt**, not a different provider CLI.
 
-To launch Claude teammates, use the team worker CLI env vars:
+This workspace is standardized on Codex workers. Launch teams with plain `omx team ...` or `$team ...` and route capability through Codex agent roles:
 
 ```bash
-# Force all teammates to Claude CLI
-OMX_TEAM_WORKER_CLI=claude omx team 2:executor "update docs and report"
-
-# Mixed team (worker 1 = Codex, worker 2 = Claude)
-OMX_TEAM_WORKER_CLI_MAP=codex,claude omx team 2:executor "split doc/code tasks"
-
-# Auto mode: Claude is selected when worker launch args/model contains 'claude'
-OMX_TEAM_WORKER_CLI=auto OMX_TEAM_WORKER_LAUNCH_ARGS="--model claude-..." omx team 2:executor "run mixed validation"
+omx team 2:executor "update docs and report"
+omx team 3:code-reviewer "review the integration surface"
 ```
 
 ## Preconditions
@@ -164,7 +158,7 @@ When `$team` is used as a follow-up mode from ralplan, carry forward the approve
    - `OMX_TEAM_WORKER=<team>/worker-<n>`
    - `OMX_TEAM_STATE_ROOT=<leader-cwd>/.omx/state`
    - `OMX_TEAM_LEADER_CWD=<leader-cwd>`
-   - worker CLI selected by `OMX_TEAM_WORKER_CLI` / `OMX_TEAM_WORKER_CLI_MAP` (`codex` or `claude`)
+   - Codex worker CLI with role selected by the team `agent-type`
    - optional worktree metadata envs when `--worktree` is used
 7. Wait for worker readiness (`capture-pane` polling)
 8. Write per-worker `inbox.md` and trigger via `tmux send-keys`
@@ -175,18 +169,11 @@ If coarse active team mode state is missing while canonical team runtime state e
 Important:
 
 - Leader remains in existing pane
-- Worker panes are independent full Codex/Claude CLI sessions
+- Worker panes are independent full Codex CLI sessions
 - Workers may run in separate git worktrees (`omx team --worktree[=<name>]`) while sharing one team state root
 - Worker ACKs go to `mailbox/leader-fixed.json`
 - Notify hook updates worker heartbeat and sends lifecycle-driven leader nudges (for example resolved native worker Stop/all-idle or stale-leader evidence) during active team mode; deprecated worker stall/progress heuristics are not operator-facing guidance.
-- Submit routing uses this CLI resolution order per worker trigger:
-  1) explicit worker CLI provided by runtime state (persisted on worker identity/config),
-  2) `OMX_TEAM_WORKER_CLI_MAP` entry for that worker index,
-  3) fallback `OMX_TEAM_WORKER_CLI` / auto detection.
-- Mixed CLI-map teams are supported for both startup and trigger submit behavior.
-- Trigger submit differs by CLI:
-  - Codex may use queue-first `Tab` on busy panes (strategy-dependent).
-  - Claude always uses direct Enter-only (`C-m`) rounds (never queue-first `Tab`).
+- Submit routing targets Codex worker panes. Codex may use queue-first `Tab` on busy panes depending on strategy.
 
 ### Team worker model + thinking resolution (current contract)
 
@@ -366,19 +353,14 @@ Useful runtime env vars:
   - Skip readiness wait (debug only)
 - `OMX_TEAM_AUTO_TRUST=0`
   - Disable auto-advance for trust prompt (default behavior auto-advances)
-- `OMX_TEAM_AUTO_ACCEPT_BYPASS=0`
-  - Disable Claude bypass-permissions prompt auto-accept (default behavior auto-accepts `2` + Enter)
 - `OMX_TEAM_WORKER_LAUNCH_ARGS`
   - Extra args passed to worker launch command
 - `OMX_TEAM_WORKER_CLI`
-  - Worker CLI selector: `auto|codex|claude` (default: `auto`)
-  - `auto` chooses `claude` when worker `--model` contains `claude`, otherwise `codex`
-  - In `claude` mode, workers launch with exactly one `--dangerously-skip-permissions`
-    and ignore explicit model/config/effort launch overrides (uses default `settings.json`)
+  - Worker CLI selector for OMX runtime compatibility. Use `codex` in this workspace.
 - `OMX_TEAM_WORKER_CLI_MAP`
-  - Per-worker CLI selector (comma-separated `auto|codex|claude`)
+  - Per-worker CLI selector for OMX runtime compatibility. Use `codex` entries only in this workspace.
   - Length must be `1` (broadcast) or exactly the team worker count
-  - Example: `OMX_TEAM_WORKER_CLI_MAP=codex,codex,claude,claude`
+  - Example: `OMX_TEAM_WORKER_CLI_MAP=codex,codex,codex,codex`
   - When present, overrides `OMX_TEAM_WORKER_CLI`
 - `OMX_TEAM_AUTO_INTERRUPT_RETRY`
   - Trigger submit fallback (default: enabled)
@@ -390,7 +372,7 @@ Useful runtime env vars:
 
 ## Failure Modes and Diagnosis
 
-Operator note (important for Claude panes):
+Operator note:
 - Manual Enter injection (`tmux send-keys ... C-m`) can appear to "do nothing" when a worker is actively processing; Enter may be queued by the pane/task flow.
 - This is not necessarily a runtime bug. Confirm worker/team state before diagnosing dispatch failure.
 - Avoid repeated blind Enter spam; it can create noisy duplicate submits once the pane becomes idle.

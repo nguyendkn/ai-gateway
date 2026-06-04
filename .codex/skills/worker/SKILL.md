@@ -15,7 +15,7 @@ You MUST be running with `OMX_TEAM_WORKER` set. It looks like:
 
 Example: `alpha/worker-2`
 
-## Load Worker Skill Path (Claude/Codex)
+## Load Worker Skill Path (Codex)
 
 When a worker inbox tells you to load this skill, resolve the first existing path:
 

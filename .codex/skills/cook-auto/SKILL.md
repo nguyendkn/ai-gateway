@@ -9,7 +9,7 @@ Use this skill for feature work where the user wants Codex to plan, implement, v
 
 ## Operating Rules
 
-- Read top-level guidance first: `AGENTS.md`, `CLAUDE.md`, `.codex/config.toml`, and relevant `docs/` files when present.
+- Read top-level guidance first: `AGENTS.md`, `.codex/config.toml`, and relevant `docs/` files when present.
 - Activate relevant local skills and agents when useful: `planner`, `fullstack-developer`, `tester`, `debugger`, `code-reviewer`, `docs-manager`, `project-manager`, `git-manager`, GitNexus skills, and domain-specific skills.
 - If expected slash commands such as `/plan`, `/code`, or `/git:cm` are unavailable, execute their intent directly with Codex tools and local agents.
 - Respect user-owned changes. Never revert unrelated work.

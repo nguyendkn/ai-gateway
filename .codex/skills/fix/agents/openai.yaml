@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix"
+  short_description: "Diagnose and repair bugs, failing tests, CI, types, and UI issues."
+  default_prompt: "Diagnose the root cause, fix it, and validate the result."

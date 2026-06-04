@@ -1,0 +1,4 @@
+interface:
+  display_name: "Journal"
+  short_description: "Capture engineering incidents and lessons as concise journal entries."
+  default_prompt: "Write a technical journal entry for this incident or lesson."

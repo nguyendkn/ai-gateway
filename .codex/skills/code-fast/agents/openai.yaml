@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Fast"
+  short_description: "Make scoped code changes with focused validation."
+  default_prompt: "Implement this scoped change using the existing code patterns and run targeted validation."

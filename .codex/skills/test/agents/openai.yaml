@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test"
+  short_description: "Run, write, and debug tests and validation checks."
+  default_prompt: "Validate this behavior with the appropriate tests and checks."

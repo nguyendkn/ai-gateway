@@ -1,11 +1,11 @@
 ---
 name: agent-builder
-description: Create Codex custom agent .toml files from a reusable template. Use when the user asks to create, convert, scaffold, or standardize a Codex agent/subagent, especially from Claude agent markdown, AGENTS.md notes, role descriptions, or workflow instructions.
+description: Create Codex custom agent .toml files from a reusable template. Use when the user asks to create, convert, scaffold, or standardize a Codex agent/subagent, especially from legacy agent markdown, AGENTS.md notes, role descriptions, or workflow instructions.
 ---
 
 # Codex Agent Template Skill
 
-Use this skill to create a valid Codex custom agent `.toml` file from a user request, pasted instructions, a Claude-style agent, or an existing workflow.
+Use this skill to create a valid Codex custom agent `.toml` file from a user request, pasted instructions, a legacy provider-style agent, or an existing workflow.
 
 ## Purpose
 
@@ -49,11 +49,14 @@ Infer:
    - Default: omit unless the user explicitly requests a model.
    - If task is light/ops: use a smaller/faster model if configured by user.
    - If task requires review/security/architecture: use a stronger model if configured by user.
+   - If `model` is specified, `model_reasoning_effort` must also be specified.
 
 4. `model_reasoning_effort`
+   - Use the Codex effort mapping when a numeric effort is provided: `1` = `low`, `2` = `medium`, `3` = `high`, `4` = `xhigh`.
    - Use `medium` for normal agent workflows.
    - Use `high` only for security, architecture, complex debugging, or PR review.
-   - Omit if not needed.
+   - Use `xhigh` only when the user explicitly requests extra-high reasoning or the task is unusually high risk.
+   - Omit only when `model` is also omitted.
 
 5. `sandbox_mode`
    - Use `read-only` for explorer/reviewer/research agents.
@@ -108,12 +111,12 @@ Output:
 """
 ```
 
-## Conversion rules from Claude agent markdown
+## Conversion rules from legacy agent markdown
 
-When converting Claude-style agent markdown:
+When converting legacy provider-style agent markdown:
 
-- Drop YAML fields that Codex does not use directly, such as Claude `tools` lists.
-- Convert `model: haiku` or Claude-specific model names only if the user gives a Codex model mapping; otherwise omit `model`.
+- Drop YAML fields that Codex does not use directly, such as provider-specific `tools` lists.
+- Convert legacy fast-lane model names to Codex only when there is an explicit mapping. In this workspace, map legacy fast-lane models to `model = "gpt-5.3-codex-spark"` and `model_reasoning_effort = "low"`.
 - Preserve the role, strict workflow, safety rules, command sequences, output format, and error handling inside `developer_instructions`.
 - Convert “Use when...” language into the Codex `description`.
 - Keep command blocks inside `developer_instructions` if they are part of the workflow.
@@ -133,6 +136,7 @@ Before finalizing, verify:
 - TOML has valid quoted strings.
 - Multi-line instructions use triple quotes.
 - `name`, `description`, and `developer_instructions` exist.
+- Any agent with `model` also has `model_reasoning_effort`.
 - Agent has one clear responsibility.
 - Any write-capable agent has safety rules.
 - Any Git/PR agent forbids AI attribution.

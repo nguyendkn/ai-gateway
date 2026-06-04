@@ -18,7 +18,7 @@ Read `references/bootstrap-protocol.md` before starting work.
 ## Operating Rules
 
 - Treat user requirements as source of truth.
-- Read top-level guidance first: `AGENTS.md`, `CLAUDE.md`, `.codex/config.toml`, and relevant `docs/` when present.
+- Read top-level guidance first: `AGENTS.md`, `.codex/config.toml`, and relevant `docs/` when present.
 - First check if Git is initialized. If not, ask user before initializing.
 - Ask one blocking question at a time.
 - Analyze available skills and activate only those needed.

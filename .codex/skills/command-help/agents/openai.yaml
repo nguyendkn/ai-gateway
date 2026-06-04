@@ -1,0 +1,4 @@
+interface:
+  display_name: "Command Help"
+  short_description: "Choose the right Codex skill, agent, workflow, or effort level."
+  default_prompt: "Recommend the right Codex-native surface for this request."

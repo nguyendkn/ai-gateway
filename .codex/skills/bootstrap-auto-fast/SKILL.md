@@ -11,7 +11,7 @@ description: Quickly plan, scaffold, implement, test, review, document, commit, 
 - Be blunt about feasibility, overengineering, risks, and trade-offs.
 - Apply YAGNI, KISS, and DRY throughout.
 - Activate relevant project skills and agents when available.
-- Follow `CLAUDE.md`, `AGENTS.md`, `docs/code-standards.md`, and development rules when present.
+- Follow `AGENTS.md`, `.codex/config.toml`, `docs/code-standards.md`, and development rules when present.
 - Do not expose secrets, tokens, credentials, or private data.
 - Do not push to remote unless the user explicitly asks.
 - Keep reports concise; sacrifice grammar for concision if needed.

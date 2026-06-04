@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worktree"
+  short_description: "Manage Git worktrees safely for isolated work."
+  default_prompt: "Inspect or manage Git worktrees for this repository."

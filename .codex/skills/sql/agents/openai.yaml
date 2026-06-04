@@ -1,0 +1,4 @@
+interface:
+  display_name: "SQL"
+  short_description: "Generate, validate, optimize, and manage SQL safely."
+  default_prompt: "Handle this SQL or text-to-SQL task with schema-aware validation."
